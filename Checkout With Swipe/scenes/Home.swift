@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     
     @StateObject var cartData = CartViewModel()
-
+    @State var rightOrLeft = false
     
     var body: some View {
        
@@ -31,6 +31,15 @@ struct Home: View {
                     .foregroundColor(.black)
                 
                 Spacer()
+                
+                Button(action: {self.rightOrLeft.toggle()}) {
+                    
+                    Image(systemName: rightOrLeft ? "arrow.uturn.left.circle" : "arrow.uturn.forward.circle")
+                        .font(.title)
+                        .foregroundColor(.black)
+                        
+                }
+//                Spacer()
             }
             .padding()
             
@@ -41,7 +50,7 @@ struct Home: View {
                     ForEach(cartData.items){item in
                         
                         // ItemView...
-                        ItemView(item: $cartData.items[getIndex(item: item)],items: $cartData.items)
+                        ItemView(item: $cartData.items[getIndex(item: item)],items: $cartData.items,rightOrLeft: $rightOrLeft)
                     }
                 }
             }
